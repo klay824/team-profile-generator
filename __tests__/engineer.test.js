@@ -4,7 +4,7 @@ const Employee = require("../lib/employee");
 test("Can set GitHub username via constructor argument", () => {
     const testValue = "dks1725";
     const e = new Engineer("Dwight Schrute", 2, "dschrute@dunder-mifflin.com", testValue);
-    expect(e.github).toBe(testValue);
+    expect(e.GitHub).toBe(testValue);
 });
 
 test("getRole() should return \"Engineer\"", () => {
