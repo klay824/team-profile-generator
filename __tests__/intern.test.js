@@ -17,4 +17,4 @@ test("Can get school from getSchool()", () => {
     const testValue = "SMU";
     const e = new Intern("Bob", 3, testValue);
     expect(e.getSchool()).toBe(testValue);
-})
+});
