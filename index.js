@@ -7,127 +7,124 @@ const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 
-inquirer
-    .prompt([
+const employees = [];
+
+function init() {
+    managerPrompt();
+}
+
+function managerPrompt() {
+    inquirer.prompt([
         {
             type: 'input',
-            name: 'teamName',
-            message: "Please enter your team's name."
-        },
-        {
-            type: 'input',
-            name: 'manager',
-            message: "Please enter the team manager's name."
+            name: 'name',
+            message: 'Please enter the name of the manager.'
         },
         {
             type: 'input',
             name: 'id',
-            message: "Please enter the team manager's employee ID."
+            message: 'Please enter the employee ID for the manager.'
         },
         {
             type: 'input',
             name: 'email',
-            message: "Please enter the team manager's email address."
+            message: 'Please enter the email address for the manager.'
         },
         {
             type: 'input',
             name: 'officeNumber',
-            message: "Please enter the team manager's office number."
-        },
-        {
-            type: 'confirm',
-            name: 'nextEmployee',
-            message: "Do you want to add more employees?",
+            message: 'Please enter the office number for the manager.'
         },
     ])
-    .then((answers) => {
-        if (answers.nextEmployee) {
-            inquirer
-                .prompt([
-                    {
-                        type: 'list',
-                        name: 'addNew',
-                        choices: ['Engineer', "Intern"]
-                    },
-                ])
-                .then((answers) => {
-                    if (answers.addNew === "Engineer") {
-                        inquirer
-                            .prompt([
-                                {
-                                    type: 'input',
-                                    name: 'engineer',
-                                    message: "Please enter the engineer's name.",
-                                },
-                                {
-                                    type: 'input',
-                                    name: 'id',
-                                    message: "Please enter the engineer's employee ID."
-                                },
-                                {
-                                    type: 'input',
-                                    name: 'email',
-                                    message: "Please enter the engineer's email address.",
-                                },
-                                {
-                                    type: 'input',
-                                    name: 'GitHub',
-                                    message: "Please enter the Engineer's GitHub username.",
-                                },
-                                {
-                                    type: 'confirm',
-                                    name: 'nextEmployee',
-                                    message: "Do you want to add more employees?",
-                                },
-                            ])
-                            .then((answers) => {
-                                const htmlPageContent = generateHTML(answers);
-                                fs.writeFile('./dist/index.html', htmlPageContent, (err) =>
-                                    err ? console.log(err) : console.log('Successfully created index.html in the dist folder!')
-                                );
-                            })
-                    } else if (answers.addNew === "Intern") {
-                        inquirer
-                            .prompt([
-                                {
-                                    type: 'input',
-                                    name: 'intern',
-                                    message: "Please enter the interns's name.",
-                                },
-                                {
-                                    type: 'input',
-                                    name: 'id',
-                                    message: "Please enter the interns's employee ID."
-                                },
-                                {
-                                    type: 'input',
-                                    name: 'email',
-                                    message: "Please enter the interns's email address.",
-                                },
-                                {
-                                    type: 'input',
-                                    name: 'GitHub',
-                                    message: "Please enter the intern's school.",
-                                },
-                            ])
-                    }
-                })
-            // } else (answers.confirm_answer) {
-            //   // the user definitely doesn't want pizza
-            // } 
+    .then(function ({ name, id, email, officeNumber }) {
+        let manager = new Manager(name, id, email, officeNumber);
+        employees.push(manager);
+        addNew();
+    });
+}
+
+function addNew() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'addNew',
+            message: 'Please choose which employee you wish to add.',
+            choices: ['Engineer', 'Intern', 'I am done adding employees.']
+        },
+    ])
+    .then(function ({ addNew }) {
+        if(addNew === "Engineer"){
+            return engineerPrompts();
+        } else if (addNew === "Intern") {
+            return internPrompts();
         } else {
-            const htmlPageContent = generateHTML(answers);
-            fs.writeFile('./dist/index.html', htmlPageContent, (err) =>
-                err ? console.log(err) : console.log('Successfully created index.html in the dist folder!')
-            );
-
+            fs.writeFile('./dist/index.html', html, function(error) {
+                if (error) {
+                    console.log(error);
+                }
+            })
         }
+    });
+}
+
+function engineerPrompts() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Please enter the name of your engineer.'
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Please enter the employee ID of the engineer.'
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Please enter the email address for the engineer.'
+        },
+        {
+            type: 'input',
+            name: 'GitHub',
+            message: 'Please enter the GitHub username for the engineer.'
+        },
+    ])
+    .then(function ({ name, id, email, GitHub }) {
+        let engineer = new Engineer(name, id, email, GitHub);
+        employees.push(engineer);
+        addNew();
     })
+}
 
+function internPrompts() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Please enter the name of the intern.'
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Please enter the employee ID of the intern.'
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Please enter the email address of the intern.'
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: 'Please enter the school of the intern.'
+        },
+    ])
+    .then(function ({ name, id, email, school }) {
+        let intern = new Intern(name, id, email, school);
+        employees.push(intern);
+        addNew();
+    })
+}
 
-
-
-
-
-
-
+init();
