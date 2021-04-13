@@ -7,7 +7,8 @@ let header = `
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="./style.css">
     <title>My Team</title>
 </head>
@@ -30,13 +31,13 @@ let footer = `
 
 </html>`
 
-function generateHTML(team){
-    for(i = 0; i < team.length; i++) {
-        if(team[i].getRole() == "Manager") {
+function generateHTML(team) {
+    for (i = 0; i < team.length; i++) {
+        if (team[i].getRole() == "Manager") {
             header += `
             <div class="card m-2 col-lg-4" style="width: 18rem;">
                 <div class="card-header">
-                ☕ ${team[i].name}
+                <i class="fas fa-mug-hot"></i> ${team[i].name}
                 </div>
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item">${team[i].id}</li>
@@ -46,17 +47,32 @@ function generateHTML(team){
             </div>`
         }
     }
-    for(i = 0; i < team.length; i++) {
-        if(team[i].getRole() == "Engineer") {
+    for (i = 0; i < team.length; i++) {
+        if (team[i].getRole() == "Engineer") {
             header += `
             <div class="card m-2 col-lg-4" style="width: 18rem;">
                 <div class="card-header">
-                👓 ${team[i].name}
+                <i class="fas fa-glasses"></i> ${team[i].name}
                 </div>
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item">${team[i].id}</li>
                 <li class="list-group-item">${team[i].email}</li>
                 <li class="list-group-item">${team[i].GitHub}</li>
+                </ul>
+            </div>`
+        }
+    }
+    for (i = 0; i < team.length; i++) {
+        if (team[i].getRole() == "Intern") {
+            header += `
+            <div class="card m-2 col-lg-4" style="width: 18rem;">
+                <div class="card-header">
+                <i class="fas fa-user-graduate"></i> ${team[i].name}
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">${team[i].id}</li>
+                <li class="list-group-item">${team[i].email}</li>
+                <li class="list-group-item">${team[i].school}</li>
                 </ul>
             </div>`
         }
