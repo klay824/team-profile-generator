@@ -7,13 +7,14 @@ const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 
-const employees = [];
+const generateHTML = require("./src/generateHTML")
+const team = [];
 
-function init() {
+const init = () => {
     managerPrompt();
 }
 
-function managerPrompt() {
+const managerPrompt = () => {
     inquirer.prompt([
         {
             type: 'input',
@@ -38,7 +39,7 @@ function managerPrompt() {
     ])
     .then(function ({ name, id, email, officeNumber }) {
         let manager = new Manager(name, id, email, officeNumber);
-        employees.push(manager);
+        team.push(manager);
         addNew();
     });
 }
@@ -58,7 +59,7 @@ function addNew() {
         } else if (addNew === "Intern") {
             return internPrompts();
         } else {
-            fs.writeFile('./dist/index.html', html, function(error) {
+            fs.writeFile('./dist/index.html', generateHTML(team), function(error) {
                 if (error) {
                     console.log(error);
                 }
@@ -67,7 +68,7 @@ function addNew() {
     });
 }
 
-function engineerPrompts() {
+const engineerPrompts = () => {
     inquirer.prompt([
         {
             type: 'input',
@@ -92,12 +93,12 @@ function engineerPrompts() {
     ])
     .then(function ({ name, id, email, GitHub }) {
         let engineer = new Engineer(name, id, email, GitHub);
-        employees.push(engineer);
+        team.push(engineer);
         addNew();
     })
 }
 
-function internPrompts() {
+const internPrompts = () => {
     inquirer.prompt([
         {
             type: 'input',
@@ -122,9 +123,13 @@ function internPrompts() {
     ])
     .then(function ({ name, id, email, school }) {
         let intern = new Intern(name, id, email, school);
-        employees.push(intern);
+        team.push(intern);
         addNew();
     })
 }
+
+// const generateManager = () => {
+//  ``
+// }
 
 init();
