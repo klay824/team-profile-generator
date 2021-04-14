@@ -60,6 +60,7 @@ function addNew() {
             return internPrompts();
         } else {
             fs.writeFile('./dist/index.html', generateHTML(team), function(error) {
+                console.log("Sucessfully generated index.html in the dist folder!")
                 if (error) {
                     console.log(error);
                 }
