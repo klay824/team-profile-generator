@@ -1,8 +1,6 @@
-// const Handlebars = require("handlebars");
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const Employee = require('./lib/employee');
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
@@ -11,6 +9,7 @@ const generateHTML = require("./src/generateHTML")
 const team = [];
 
 const init = () => {
+    console.log("\x1b[36m", "Welcome to the Team Profile Generator! Please answer the following questions to build your team.")
     managerPrompt();
 }
 
@@ -49,8 +48,8 @@ function addNew() {
         {
             type: 'list',
             name: 'addNew',
-            message: 'Please choose which employee you wish to add.',
-            choices: ['Engineer', 'Intern', 'I am done adding employees.']
+            message: 'Please choose which team member you wish to add.',
+            choices: ['Engineer', 'Intern', 'I am done adding team members.']
         },
     ])
     .then(function ({ addNew }) {
@@ -128,9 +127,5 @@ const internPrompts = () => {
         addNew();
     })
 }
-
-// const generateManager = () => {
-//  ``
-// }
 
 init();
