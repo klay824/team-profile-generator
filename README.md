@@ -6,7 +6,7 @@
 * [Technology Used](#technology)
 * [Resources](#resources)
 * [Licensing Information](#licensing)
-* [GIF Demonstration](#gif)
+* [GIF Demonstration](#demonstrations)
 * [Screenshots](#screenshots)
 <br>
 <br>
@@ -37,24 +37,19 @@ This project is covered under the MIT license.
 <br>
 <br>
 
-## GIF Demonstration of Application
-
+## Demonstrations
+![](lib/gifs/gif-1.gif)
+<br>
+<br>
+![](lib/gifs/gif-2.gif)
+<br>
+<br>
+![](lib/gifs/gif-test.gif)
 <br>
 <br>
 
-#### Generated HTML Screenshot
-
+#### Screenshots
+![](lib/images/screenshot-html.png)
 <br>
 <br>
-
-#### index.js Screenshot
-
-<br>
-<br>
-
-#### generateHTML.js Screenshot
-
-<br>
-<br>
-
-#### Terminal Screenshot
+![](lib/images/screenshot-test.png)
