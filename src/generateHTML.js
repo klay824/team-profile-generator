@@ -1,3 +1,4 @@
+// Beginning of HTML
 let header = `
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +28,7 @@ let header = `
         <div class="row justify-content-center">`;
 
 
+// This gets added on after the team members
 let footer = `
         </div>
     </main>
@@ -36,7 +38,7 @@ let footer = `
 </html>`
 
 function generateHTML(team) {
-    // Manager
+    // Manager section 
     for (i = 0; i < team.length; i++) {
         if (team[i].getRole() == "Manager") {
             header += `
@@ -48,7 +50,7 @@ function generateHTML(team) {
                 <ul class="list-group list-group-flush mb-3">
                 <li class="list-group-item">Employee ID: ${team[i].id}</li>
                 <li class="list-group-item">Email: <a href=mailto:${team[i].email} target="_blank">${team[i].email}</a>
-                <li class="list-group-item">Office number: ${team[i].officeNumber}</li>
+                <li class="list-group-item">Office Number: ${team[i].officeNumber}</li>
                 </ul>
             </div>`
         }
